@@ -1,4 +1,4 @@
-module FFD1 (input wire D1, enabled, clk, reset, output reg Q);
+module FFD1 (input wire D, enabled, clk, reset, output reg Q);
 always @(posedge clk or posedge enabled or posedge reset) begin
 
   if (reset)
@@ -8,10 +8,9 @@ always @(posedge clk or posedge enabled or posedge reset) begin
   end
 endmodule
 
-module FFJK (input wire clk, enabled, J, K, reset, output reg Q);
-always @(posedge clk or posedge enabled or posedge reset) begin
-
-
-end
+module FFJK (input wire clk, enabled, J, K, reset, output wire Q);
+wire D1;
+assign D1= (J & ~Q) | (K & Q);
+FFD1 F1(D1, enabled, clk, reset, Q);
 
 endmodule
